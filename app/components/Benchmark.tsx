@@ -44,7 +44,7 @@ const Benchmark = () => {
       {/* Header Bar */}
       <div className="flex justify-between items-center px-6 py-4 border-y border-zinc-300 text-xs font-dmmono text-zinc-500 tracking-wider">
         <div>Benchmark</div>
-        <div>[3/8]</div>
+        <div>[<span className="text-blue-500">2</span>/3]</div>
       </div>
 
       {/* Hero Section */}

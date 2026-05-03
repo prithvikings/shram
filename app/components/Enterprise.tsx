@@ -4,12 +4,12 @@ import React from "react";
 
 const Enterprise = () => {
   return (
-    <div className="max-w-6xl mx-auto border border-t-0 border-zinc-300 bg-[#FAFAFA] font-sans flex flex-col">
+    <div className="max-w-6xl mx-auto border border-b-0 border-t-0 border-zinc-300 bg-[#FAFAFA] font-sans flex flex-col">
       
       {/* Top Header Bar */}
       <div className="flex justify-between items-center px-6 py-4 border-b border-t-0 border-zinc-300 text-xs font-dmmono text-zinc-500 tracking-wider">
         <div>ENTERPRISE</div>
-        <div>[ <span className="text-blue-500">6</span>/8 ]</div>
+        <div>[<span className="text-blue-500">3</span>/4]</div>
       </div>
 
       {/* Hero Section */}

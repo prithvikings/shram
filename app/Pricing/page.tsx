@@ -82,13 +82,11 @@ const PlusIcon = () => (
   </svg>
 );
 
+
 const Pricing = () => {
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900 font-sans">
-      <Navbar />
-
-      <main className="max-w-6xl mx-auto mt-10 border-x border-t border-zinc-300">
-        
+      <main className="max-w-6xl mx-auto border-t-0 border-x border-zinc-300">
         {/* --- Hero Section --- */}
         <section className="py-24 px-6 text-center">
           <div className="text-xs font-dmmono tracking-widest text-zinc-500 font-medium mb-6 uppercase">Pricing</div>
