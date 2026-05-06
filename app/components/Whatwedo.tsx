@@ -37,7 +37,7 @@ const stackData = [
 ];
 
 // Reusable SVG component for the wireframe isometric cube
-const WireframeCube = ({ isActive }) => {
+const WireframeCube = ({ isActive }: { isActive: boolean }) => {
   const strokeColor = isActive ? "#16a34a" : "#d4d4d8"; // Green-600 for active, zinc-300 for inactive
   const strokeWidth = isActive ? "2" : "1";
 
@@ -191,7 +191,7 @@ const Whatwedo = () => {
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                       className="overflow-hidden"
                     >
-                      <div className="pl-[3.25rem] pb-6 pr-8 text-[13px] text-zinc-500 leading-relaxed max-md:pb-4 max-md:pr-2">
+                      <div className="pl-13 pb-6 pr-8 text-[13px] text-zinc-500 leading-relaxed max-md:pb-4 max-md:pr-2">
                         {item.content}
                       </div>
                     </motion.div>

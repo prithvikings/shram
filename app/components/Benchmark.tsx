@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion, Variants } from "motion/react";
 
 const Benchmark = () => {
   const CheckIcon = () => (
@@ -99,6 +100,32 @@ const Benchmark = () => {
     },
   ];
 
+  // --- Animation Variants ---
+  // Orchestrates the staggering of children elements
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1, // 100ms delay between each item
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  // The buttery slide-up effect for individual items
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.7,
+        ease: [0.16, 1, 0.3, 1], // Premium cubic-bezier ease
+      },
+    },
+  };
+
   return (
     <>
       <div className="max-w-6xl mx-auto border border-y-0 bg-neutral-100 border-zinc-300 flex flex-col items-center justify-center p-4 py-6 text-center max-md:border-x-0 max-md:py-4">
@@ -107,7 +134,6 @@ const Benchmark = () => {
         </p>
       </div>
 
-      {/* Main Section - The sticky header will respect these boundaries */}
       <div className="max-w-6xl mx-auto border-x border-zinc-300 bg-[#FAFAFA] font-sans relative max-md:border-x-0">
         {/* Header Bar */}
         <div className="sticky top-[64px] bg-[#FAFAFA] z-40 flex justify-between items-center px-6 py-4 border-y border-zinc-300 text-xs font-dmmono text-zinc-500 tracking-wider max-md:px-4 max-md:py-3">
@@ -117,25 +143,46 @@ const Benchmark = () => {
           </div>
         </div>
 
-        {/* Hero Section */}
-        <div className="text-center px-6 pt-14 pb-20 max-w-4xl mx-auto flex flex-col items-center gap-2 max-md:pt-10 max-md:pb-12 max-md:px-4">
-          <h2 className="max-w-[700px] font-heading text-[44px] font-medium tracking-[-0.04em] leading-[120%] text-text text-center max-lg:text-[36px] max-md:text-[28px]">
+        {/* 1. Hero Section (Animated) */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }} // Triggers when 30% in view
+          className="text-center px-6 pt-14 pb-20 max-w-4xl mx-auto flex flex-col items-center gap-2 max-md:pt-10 max-md:pb-12 max-md:px-4"
+        >
+          <motion.h2
+            variants={itemVariants}
+            className="max-w-[700px] font-heading text-[44px] font-medium tracking-[-0.04em] leading-[120%] text-text text-center max-lg:text-[36px] max-md:text-[28px]"
+          >
             We do not think reminders tell the full story.
-          </h2>
-          <p className="text-md text-zinc-500 leading-relaxed max-w-xl mx-auto max-md:text-sm">
+          </motion.h2>
+          <motion.p
+            variants={itemVariants}
+            className="text-md text-zinc-500 leading-relaxed max-w-xl mx-auto max-md:text-sm"
+          >
             But we beat every other app anyway. The state-of-the-art on Threads,
             Emails, and WhatsApp. We also built{" "}
             <span className="font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4">
               MemoryLayer
             </span>
             , an auto pilot tracker for busy workflows.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-[1px] bg-zinc-200 border-y border-zinc-200 font-space">
+        {/* 2. Stats Grid (Animated staggered cascade) */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-[1px] bg-zinc-200 border-y border-zinc-200 font-space"
+        >
           {/* Row 1 */}
-          <div className="flex flex-col items-center justify-center p-8 text-center bg-[#FAFAFA] max-md:p-6">
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col items-center justify-center p-8 text-center bg-[#FAFAFA] max-md:p-6"
+          >
             <p className="text-xs font-mono text-zinc-500 tracking-widest uppercase mb-3">
               FOLLOW UP %
             </p>
@@ -145,9 +192,12 @@ const Benchmark = () => {
             <p className="text-xs text-zinc-500 font-medium">
               Automated follow-up success
             </p>
-          </div>
+          </motion.div>
 
-          <div className="flex flex-col items-center justify-center p-8 text-center bg-[#FAFAFA] max-md:p-6">
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col items-center justify-center p-8 text-center bg-[#FAFAFA] max-md:p-6"
+          >
             <p className="text-xs font-mono text-zinc-500 tracking-widest uppercase mb-3">
               MISSED
             </p>
@@ -155,9 +205,12 @@ const Benchmark = () => {
             <p className="text-xs text-zinc-500 font-medium">
               Cold or forgotten chains
             </p>
-          </div>
+          </motion.div>
 
-          <div className="flex flex-col items-center justify-center p-8 text-center bg-[#FAFAFA] max-md:p-6">
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col items-center justify-center p-8 text-center bg-[#FAFAFA] max-md:p-6"
+          >
             <p className="text-xs font-mono text-zinc-500 tracking-widest uppercase mb-3">
               DRAFTING
             </p>
@@ -165,10 +218,13 @@ const Benchmark = () => {
             <p className="text-xs text-zinc-500 font-medium">
               Context-aware writing
             </p>
-          </div>
+          </motion.div>
 
           {/* Row 2 */}
-          <div className="flex flex-col items-center justify-center p-6 text-center bg-[#FAFAFA] max-md:p-6">
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col items-center justify-center p-6 text-center bg-[#FAFAFA] max-md:p-6"
+          >
             <div className="flex items-baseline gap-2">
               <span className="text-4xl font-medium text-zinc-900">0</span>
               <span className="text-lg font-medium text-zinc-900">
@@ -178,9 +234,12 @@ const Benchmark = () => {
             <p className="text-xs font-medium text-zinc-500">
               Others need 5-10
             </p>
-          </div>
+          </motion.div>
 
-          <div className="flex flex-col items-center justify-center p-6 text-center bg-[#FAFAFA] max-md:p-6">
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col items-center justify-center p-6 text-center bg-[#FAFAFA] max-md:p-6"
+          >
             <div className="flex items-baseline gap-2">
               <span className="text-4xl font-medium text-zinc-900">
                 {"<10sec"}
@@ -190,9 +249,12 @@ const Benchmark = () => {
               </span>
             </div>
             <p className="text-xs font-medium text-zinc-500">Full context</p>
-          </div>
+          </motion.div>
 
-          <div className="flex flex-col items-center justify-center p-6 text-center bg-[#FAFAFA] max-md:p-6">
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col items-center justify-center p-6 text-center bg-[#FAFAFA] max-md:p-6"
+          >
             <div className="flex items-baseline gap-2">
               <span className="text-4xl font-medium text-zinc-900">100k+</span>
               <span className="text-lg font-medium text-zinc-900">
@@ -202,15 +264,25 @@ const Benchmark = () => {
             <p className="text-xs font-medium text-zinc-500">
               Constantly active
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        {/* Comparison Table Section */}
+        {/* 3. Comparison Table Section (Animated rows) */}
         <div className="px-6 py-8 bg-white flex flex-col items-center max-md:px-4 max-md:py-6">
-          <div className="w-full max-w-5xl border border-zinc-200 rounded-xl overflow-x-auto font-space bg-white custom-scrollbar">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            // Fix applied here: added overflow-y-hidden
+            className="w-full max-w-5xl border border-zinc-200 rounded-xl overflow-x-auto overflow-y-hidden font-space bg-white custom-scrollbar"
+          >
             <div className="max-md:min-w-[600px]">
               {/* Table Header */}
-              <div className="grid grid-cols-4 bg-white border-b border-zinc-200">
+              <motion.div
+                variants={itemVariants}
+                className="grid grid-cols-4 bg-white border-b border-zinc-200"
+              >
                 <div className="p-5 text-sm font-medium text-zinc-600 max-md:p-4">
                   Feature
                 </div>
@@ -223,12 +295,13 @@ const Benchmark = () => {
                 <div className="p-5 text-sm font-medium text-zinc-600 text-center max-md:p-4">
                   Bot
                 </div>
-              </div>
+              </motion.div>
 
-              {/* Table Body */}
+              {/* Table Body - Staggered Rows */}
               {tableData.map((row, index) => (
-                <div
+                <motion.div
                   key={index}
+                  variants={itemVariants} // Each row slides up gently
                   className={`grid grid-cols-4 items-center hover:bg-zinc-50/50 transition-colors ${
                     index !== tableData.length - 1
                       ? "border-b border-zinc-100"
@@ -247,10 +320,10 @@ const Benchmark = () => {
                   <div className="p-5 py-3.5 flex justify-center h-full items-center max-md:p-4">
                     {row.zep}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
@@ -258,8 +331,14 @@ const Benchmark = () => {
       <div className="max-w-6xl mx-auto text-center py-6 border border-zinc-300 w-full flex items-center justify-center text-sm text-zinc-500 max-md:border-x-0 max-md:text-xs max-md:py-4 max-md:px-4">
         <span>
           Request your early access key{" "}
-          <span className="text-zinc-900 font-medium underline decoration-zinc-300 underline-offset-4 cursor-pointer">
+          <span className="relative group inline-block text-zinc-900 font-medium underline decoration-zinc-300 underline-offset-4 cursor-pointer">
             here
+            {/* Tooltip Container */}
+            <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1.5 bg-zinc-900 text-white text-[11px] font-sans font-medium rounded-md opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 ease-out pointer-events-none whitespace-nowrap shadow-sm z-50">
+              Get link
+              {/* Tooltip little bottom arrow/triangle */}
+              <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-zinc-900"></span>
+            </span>
           </span>
           .
         </span>

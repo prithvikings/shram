@@ -22,7 +22,6 @@ const page = () => {
       <Whatwedo />
       <Benchmark />
       <Localisation />
-      <Enterprise />
       <Divider height={24} />
       <Testimonials />
       <Divider height={16} />
