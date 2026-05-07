@@ -36,80 +36,130 @@ const stackData = [
   },
 ];
 
-// Reusable SVG component for the wireframe isometric cube
-const WireframeCube = ({ isActive }: { isActive: boolean }) => {
-  // Using Tailwind utility classes for strokes allows us to hook directly into dark mode natively
-  const strokeClass = isActive
-    ? "stroke-green-600 dark:stroke-green-500"
-    : "stroke-zinc-300 dark:stroke-zinc-700";
-  const strokeWidth = isActive ? "2" : "1";
+const AnimatedCube = ({
+  index,
+  isActive,
+}: {
+  index: number;
+  isActive: boolean;
+}) => {
+  const springTransition = { type: "spring", stiffness: 300, damping: 25 };
+
+  const getTransformations = () => {
+    switch (index % 5) {
+      case 0: // 1st SVG: Right face slides right (translateX 18px)
+      case 3: // 4th SVG: Same as 1st
+        return {
+          rightFace: { x: isActive ? 18 : 0 },
+          topFace: { y: 0 },
+          leftFace: { x: 0 },
+        };
+      case 1: // 2nd SVG: Top face slides up (translateY -18px)
+      case 4: // 5th SVG: Same as 2nd
+        return {
+          rightFace: { x: 0 },
+          topFace: { y: isActive ? -18 : 0 },
+          leftFace: { x: 0 },
+        };
+      case 2: // 3rd SVG: Left face slides left (translateX -18px)
+        return {
+          rightFace: { x: 0 },
+          topFace: { y: 0 },
+          leftFace: { x: isActive ? -18 : 0 },
+        };
+      default:
+        return { rightFace: { x: 0 }, topFace: { y: 0 }, leftFace: { x: 0 } };
+    }
+  };
+
+  const { rightFace, topFace, leftFace } = getTransformations();
 
   return (
     <svg
-      width="160"
-      height="140"
-      viewBox="0 0 140 120"
+      viewBox="0 0 200 200"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="transition-all duration-500"
+      className={`size-44 transition-colors duration-500 ${
+        isActive ? "text-sky-600" : "text-zinc-300 dark:text-zinc-700"
+      }`}
     >
-      {/* Top Face */}
-      <path
-        d="M70 5 L135 35 L70 65 L5 35 Z"
-        className={`transition-colors duration-300 ${strokeClass}`}
-        strokeWidth={strokeWidth}
-        strokeLinejoin="round"
-      />
-      {/* Left Face */}
-      <path
-        d="M5 35 L70 65 L70 115 L5 85 Z"
-        className={`transition-colors duration-300 ${strokeClass}`}
-        strokeWidth={strokeWidth}
-        strokeLinejoin="round"
-      />
-      {/* Right Face */}
-      <path
-        d="M70 65 L135 35 L135 85 L70 115 Z"
-        className={`transition-colors duration-300 ${strokeClass}`}
-        strokeWidth={strokeWidth}
-        strokeLinejoin="round"
-      />
+      {/* Top Face Group */}
+      <motion.g animate={topFace} transition={springTransition}>
+        <path
+          d="M100 40 Q108 40 155 68 Q162 72 155 76 Q108 104 100 104 Q92 104 45 76 Q38 72 45 68 Q92 40 100 40 Z"
+          className="fill-zinc-100 dark:fill-zinc-800"
+          stroke="currentColor"
+          strokeWidth="1.5"
+        />
+        <path
+          d="M100 52 Q105 52 132 68 Q138 72 132 76 Q105 92 100 92 Q95 92 68 76 Q62 72 68 68 Q95 52 100 52 Z"
+          className="fill-white dark:fill-zinc-950"
+          stroke="currentColor"
+          strokeWidth="1"
+        />
+      </motion.g>
 
-      {/* Inner Top Face Detail */}
-      <path
-        d="M70 18 L115 35 L70 52 L25 35 Z"
-        className={`transition-colors duration-300 ${strokeClass}`}
-        strokeWidth={strokeWidth}
-        strokeLinejoin="round"
-      />
+      {/* Left Face Group (includes dashed lines) */}
+      <motion.g animate={leftFace} transition={springTransition}>
+        <path
+          d="M45 76 L100 104 L100 164 Q100 170 92 166 L45 140 Q38 136 38 128 L38 80 Q38 72 45 76 Z"
+          className="fill-zinc-100 dark:fill-zinc-800/80"
+          stroke="currentColor"
+          strokeWidth="1.5"
+        />
+        <path
+          d="M55 86 L55 145"
+          stroke="currentColor"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeDasharray="3 3"
+        />
+        <path
+          d="M70 95 L70 155"
+          stroke="currentColor"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeDasharray="3 3"
+        />
+        <path
+          d="M85 104 L85 162"
+          stroke="currentColor"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeDasharray="3 3"
+        />
+      </motion.g>
 
-      {/* Vertical dashed lines for left face */}
-      <path
-        d="M25 45 L25 90"
-        className={`transition-colors duration-300 ${strokeClass}`}
-        strokeWidth={strokeWidth}
-        strokeDasharray="2 3"
-      />
-      <path
-        d="M48 55 L48 100"
-        className={`transition-colors duration-300 ${strokeClass}`}
-        strokeWidth={strokeWidth}
-        strokeDasharray="2 3"
-      />
-
-      {/* Vertical dashed lines for right face */}
-      <path
-        d="M115 45 L115 90"
-        className={`transition-colors duration-300 ${strokeClass}`}
-        strokeWidth={strokeWidth}
-        strokeDasharray="2 3"
-      />
-      <path
-        d="M92 55 L92 100"
-        className={`transition-colors duration-300 ${strokeClass}`}
-        strokeWidth={strokeWidth}
-        strokeDasharray="2 3"
-      />
+      {/* Right Face Group (includes dashed lines) */}
+      <motion.g animate={rightFace} transition={springTransition}>
+        <path
+          d="M155 76 L100 104 L100 164 Q100 170 108 166 L155 140 Q162 136 162 128 L162 80 Q162 72 155 76 Z"
+          className="fill-zinc-200 dark:fill-zinc-800"
+          stroke="currentColor"
+          strokeWidth="1.5"
+        />
+        <path
+          d="M145 86 L145 145"
+          stroke="currentColor"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeDasharray="3 3"
+        />
+        <path
+          d="M130 95 L130 155"
+          stroke="currentColor"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeDasharray="3 3"
+        />
+        <path
+          d="M115 104 L115 162"
+          stroke="currentColor"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeDasharray="3 3"
+        />
+      </motion.g>
     </svg>
   );
 };
@@ -117,117 +167,90 @@ const WireframeCube = ({ isActive }: { isActive: boolean }) => {
 const Whatwedo = () => {
   const [activeItem, setActiveItem] = useState(0);
 
-  // Auto-play functionality
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveItem((prev) => (prev + 1) % stackData.length);
-    }, 4000); // Changes every 4 seconds
-
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto border border-t-0 border-zinc-300 dark:border-zinc-800 bg-[#FAFAFA] dark:bg-zinc-950/40 py-20 pb-10 px-6 md:px-12 font-sans relative overflow-hidden max-md:py-12 max-md:pb-8 max-md:px-4 max-md:border-x-0 transition-colors duration-300">
-      {/* Main Title Section */}
+    <div className="max-w-6xl mx-auto border border-t-0 border-zinc-300 dark:border-zinc-800 bg-[#FAFAFA] dark:bg-zinc-950/40 py-20 pb-10 px-6 md:px-12 font-sans relative overflow-hidden transition-colors duration-300">
       <div className="text-center max-w-3xl mx-auto mb-20 relative z-10 max-md:mb-10">
-        <h2 className="text-3xl md:text-4xl font-space font-bold text-zinc-900 dark:text-zinc-50 tracking-tight mb-4 max-sm:text-2xl max-sm:px-2 transition-colors duration-300">
+        <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 dark:text-zinc-50 tracking-tight mb-4 transition-colors duration-300">
           The ultimate memory autopilot.
         </h2>
-        <p className="text-base text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto max-sm:text-sm max-sm:px-2 transition-colors duration-300">
+        <p className="text-base text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto transition-colors duration-300">
           Other task managers wait for you to type. Shram watches your apps,
-          acting for you. So instead of writing to-do lists, you just let Shram
-          do it. Saving time, sanity, and ensuring no conversation ever goes
-          cold.
+          acting for you.
         </p>
       </div>
 
-      {/* Split Content Area */}
-      <div className="flex flex-col lg:flex-row max-w-5xl mx-auto gap-12 relative z-10 max-md:gap-8">
-        {/* Left Side: Accordion */}
+      <div className="flex flex-col lg:flex-row max-w-5xl mx-auto gap-12 relative z-10">
         <div className="w-full lg:w-[55%] flex flex-col">
-          {/* Top boundary dashed line */}
-          <div className="border-t border-dashed border-zinc-200 dark:border-zinc-800 transition-colors duration-300" />
-
-          {stackData.map((item, index) => {
-            const isActive = activeItem === index;
-
-            return (
-              <div
-                key={item.id}
-                className="border-b border-dashed border-zinc-200 dark:border-zinc-800 transition-colors duration-300"
+          <div className="border-t border-dashed border-zinc-200 dark:border-zinc-800" />
+          {stackData.map((item, index) => (
+            <div
+              key={item.id}
+              className="border-b border-dashed border-zinc-200 dark:border-zinc-800"
+            >
+              <button
+                onClick={() => setActiveItem(index)}
+                className="w-full flex items-center gap-4 py-5 text-left focus:outline-none group"
               >
-                {/* Accordion Header */}
-                <button
-                  onClick={() => setActiveItem(index)}
-                  className="w-full flex items-center gap-4 py-5 text-left focus:outline-none group max-md:py-4"
+                <div
+                  className={`w-7 h-7 shrink-0 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ${
+                    activeItem === index
+                      ? "bg-sky-600 text-white"
+                      : "bg-zinc-100 dark:bg-zinc-900 text-zinc-500"
+                  }`}
                 >
-                  {/* Circle Indicator */}
-                  <div
-                    className={`w-7 h-7 shrink-0 rounded-full flex items-center justify-center text-xs font-bold transition-colors duration-300 ${
-                      isActive
-                        ? "bg-rose-600 text-white dark:bg-rose-700"
-                        : "bg-zinc-100 dark:bg-zinc-900/60 text-zinc-500 dark:text-zinc-500 group-hover:bg-zinc-200 dark:group-hover:bg-zinc-800"
-                    }`}
+                  {index + 1}
+                </div>
+                <span
+                  className={`text-[15px] transition-colors duration-300 ${
+                    activeItem === index
+                      ? "text-zinc-900 dark:text-zinc-50 font-bold"
+                      : "text-zinc-500 dark:text-zinc-400 font-medium"
+                  }`}
+                >
+                  {item.title}
+                </span>
+              </button>
+              <AnimatePresence initial={false}>
+                {activeItem === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="overflow-hidden"
                   >
-                    {index + 1}
-                  </div>
-
-                  {/* Title */}
-                  <span
-                    className={`text-[15px] transition-colors duration-300 font-space max-sm:text-sm ${
-                      isActive
-                        ? "text-zinc-900 dark:text-zinc-50 font-bold"
-                        : "text-zinc-500 dark:text-zinc-400 font-medium group-hover:text-zinc-700 dark:group-hover:text-zinc-200"
-                    }`}
-                  >
-                    {item.title}
-                  </span>
-                </button>
-
-                {/* Accordion Content (Animated) */}
-                <AnimatePresence initial={false}>
-                  {isActive && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pl-13 pb-6 pr-8 text-[13px] text-zinc-500 dark:text-zinc-400 leading-relaxed max-md:pb-4 max-md:pr-2 transition-colors duration-300">
-                        {item.content}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
+                    <div className="pl-11 pb-6 pr-8 text-[13px] text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                      {item.content}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
         </div>
 
-        {/* Right Side: Vertical Isometric Cube Stack */}
-        <div className="w-full lg:w-[45%] flex items-center justify-center min-h-[500px] max-md:min-h-0 max-md:h-[350px]">
-          {/* Scaled down on mobile to prevent massive empty vertical space */}
-          <div className="relative w-[160px] h-[550px] max-md:transform max-md:scale-[0.7] max-md:origin-top max-md:h-[385px]">
-            {stackData.map((item, index) => {
-              const isActive = activeItem === index;
-
-              return (
-                <div
-                  key={item.id}
-                  className="absolute left-0 transition-transform duration-500 ease-out"
-                  style={{
-                    top: `${index * 85}px`,
-                    zIndex: index,
-                    transform: isActive
-                      ? "scale(1.05) translateX(-5px)"
-                      : "scale(1) translateX(0)",
-                  }}
-                >
-                  <WireframeCube isActive={isActive} />
-                </div>
-              );
-            })}
+        <div className="w-full lg:w-[45%] flex items-center justify-center min-h-[500px]">
+          <div className="relative w-[176px] h-[550px] max-md:scale-75">
+            {stackData.map((item, index) => (
+              <div
+                key={item.id}
+                className="absolute left-0 transition-all duration-500"
+                style={{
+                  top: `${index * 80}px`,
+                  zIndex: stackData.length - index,
+                  opacity: activeItem === index ? 1 : 0.4,
+                  filter: activeItem === index ? "none" : "grayscale(0.5)",
+                }}
+              >
+                <AnimatedCube index={index} isActive={activeItem === index} />
+              </div>
+            ))}
           </div>
         </div>
       </div>

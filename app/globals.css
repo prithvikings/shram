@@ -9,10 +9,12 @@
   --font-dmsans: var(--font-dm-sans);
   --font-dmmono: var(--font-dm-mono);
   --font-space: var(--font-space-grotesk); 
-
+--font-gilroy: var(--font-gilroy);
   --font-sans: var(--font-dm-sans);
   --font-mono: var(--font-dm-mono);
   --font-heading: var(--font-space-grotesk);
+  --font-geist: var(--font-geist-sans);
+  --font-geist-mono: var(--font-geist-mono);
 
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
@@ -138,5 +140,37 @@
 @layer utilities {
   .font-heading {
     font-family: var(--font-space-grotesk), system-ui, sans-serif !important;
+  }
+}
+
+
+@theme inline {
+  /* ... your existing variables ... */
+
+  /* Add the animation definition */
+  --animate-marquee: marquee 1s linear infinite;
+
+  /* Add the keyframes */
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%); /* Adjust to -33% if you only duplicated the array twice instead of three times */
+    }
+  }
+}
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth; /* 👈 Add this line */
   }
 }

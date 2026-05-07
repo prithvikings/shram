@@ -128,20 +128,20 @@ const Testimonials = () => {
     {
       name: "Harshil Mathur",
       handle: "@harshilmathur",
-      text: "@levelsio I tried every single task app out here - manual pipeline boards, tags etc. the only thing that works reliably is @shramdotai . Not facing any dropped leads after setting it up.",
+      text: "@levelsio I tried every single task app out here - manual pipeline boards, tags etc. the only thing that works reliably is @shram.ai . Not facing any dropped leads after setting it up.",
       date: "Feb 16, 2026",
       annotation: "^ CEO of a million dollar agency!!!!",
     },
     {
       name: "Ry",
       handle: "@heyhaigh",
-      text: "My daily task tracking just got supercharged ⚡️ with @shramdotai.\n\nShram.ai is an amazing tracking app that has provided much more reliable auto drafting for my personal client threads and for team inboxes alike.\n\nHere's a full breakdown of how I've leveraged it. Hats off to https://t.co/Dh2m37Zrrs",
+      text: "My daily task tracking just got supercharged ⚡️ with @shram.ai.\n\nShram.ai is an amazing tracking app that has provided much more reliable auto drafting for my personal client threads and for team inboxes alike.\n\nHere's a full breakdown of how I've leveraged it. Hats off to https://t.co/Dh2m37Zrrs",
       date: "Dec 30, 2025",
     },
     {
       name: "Zimm",
       handle: "@Dan_Zmann",
-      text: "@DeRonin_ Running an actual autopilot  with read / draft access, custom syncs, live app and w search, 4 unique Google workspace auth, shram memory.\n\nSub 2s drafting time, sub 1s sync call\n\nWill film a demo soon\n\nUsing @slack app and @shramdotai are cheat codes",
+      text: "@DeRonin_ Running an actual autopilot  with read / draft access, custom syncs, live app and w search, 4 unique Google workspace auth, shram memory.\n\nSub 2s drafting time, sub 1s sync call\n\nWill film a demo soon\n\nUsing @slack app and @shram.ai are cheat codes",
       date: "Mar 17, 2026",
     },
   ];
@@ -150,7 +150,7 @@ const Testimonials = () => {
     {
       name: "Micky",
       handle: "@Rasmic",
-      text: "Let's see if @shramdotai drafts\nhttps://t.co/nybko6Uwy9",
+      text: "Let's see if @shram.ai drafts\nhttps://t.co/nybko6Uwy9",
       image: "mobile-mock",
       date: "Feb 18, 2026",
       annotation: "^ Broker at our favorite company!!!!",
@@ -158,13 +158,13 @@ const Testimonials = () => {
     {
       name: "Dewaldt Huysamen",
       handle: "@GodsBoy7777",
-      text: "@shramdotai I just migrated my entire WhatsApp history into Shram app  using their sync, parsed 1,797 conversations, extracted the tasks, and automatically drafted them into the right chat boxes.",
+      text: "@shram.ai I just migrated my entire WhatsApp history into Shram app  using their sync, parsed 1,797 conversations, extracted the tasks, and automatically drafted them into the right chat boxes.",
       date: "Mar 14, 2026",
     },
     {
       name: "Alex",
       handle: "@alex_dev",
-      text: "Been in love with @shramdotai lately such a cool thing to add to your stacks\n\nAlso shoutout to their founder who sat down and helped me with my shram app integrations",
+      text: "Been in love with @shram.ai lately such a cool thing to add to your stacks\n\nAlso shoutout to their founder who sat down and helped me with my shram app integrations",
       date: "Mar 9, 2026",
     },
   ];
@@ -173,7 +173,7 @@ const Testimonials = () => {
     {
       name: "Armin Daryabegi",
       handle: "@saasjesus",
-      text: "This is crazy... We just ditched CRM completely and went tracker only through @shramdotai.\n\nReduced avg drafting time from 40s -> 12s\nDoing about 40-50% fewer clicks\n\nJust memory & near realtime app-syncing even for volatile information which shouldn't read a 5 days old, cached https://t.co/5jmiY9cOq9",
+      text: "This is crazy... We just ditched CRM completely and went tracker only through @shram.ai.\n\nReduced avg drafting time from 40s -> 12s\nDoing about 40-50% fewer clicks\n\nJust memory & near realtime app-syncing even for volatile information which shouldn't read a 5 days old, cached https://t.co/5jmiY9cOq9",
       image: "chart-mock",
       date: "Feb 19, 2026",
       annotation:
@@ -182,14 +182,14 @@ const Testimonials = () => {
     {
       name: "zan",
       handle: "@zanbuilds",
-      text: "fast typing feels good but have you vibed with @shramdotai yet\n\nintegrated it today in my freelance project & took 120 seconds https://t.co/48wk4fCcQc",
+      text: "fast typing feels good but have you vibed with @shram.ai yet\n\nintegrated it today in my freelance project & took 120 seconds https://t.co/48wk4fCcQc",
       image: "dark-ui-mock",
       date: "Mar 18, 2026",
     },
     {
       name: "Nicolas codet",
       handle: "@NicolasCodet",
-      text: "@shramdotai one of the best products ive used in a long time props to the team behind this",
+      text: "@shram.ai one of the best products ive used in a long time props to the team behind this",
       date: "Mar 9, 2026",
     },
   ];

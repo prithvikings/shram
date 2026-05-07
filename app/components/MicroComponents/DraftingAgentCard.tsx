@@ -165,7 +165,7 @@ export default function DraftingAgentCard() {
                     src="/logo.png"
                     alt="Logo"
                     fill
-                    className="object-cover"
+                    className="object-cover dark:invert transition-all"
                     sizes="16px"
                   />
                 </div>
@@ -225,17 +225,39 @@ export default function DraftingAgentCard() {
                       className="w-full h-full"
                     >
                       <button className="w-full flex items-center justify-center gap-2 text-xs border border-zinc-200 dark:border-zinc-700/60 bg-zinc-50 dark:bg-zinc-800/50 px-2 py-1.5 rounded font-medium text-zinc-500 dark:text-zinc-400 cursor-default h-full transition-colors">
+                        {/* NEW CIRCULAR FLICKER LOADER */}
                         <svg
-                          width="14"
-                          height="14"
+                          width="16"
+                          height="16"
                           viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          className="animate-spin text-zinc-400 dark:text-zinc-500 shrink-0"
-                          style={{ animationDuration: "1s" }}
+                          fill="currentColor"
+                          className="text-zinc-400 dark:text-zinc-500 shrink-0"
                         >
-                          <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                          {[
+                            { cx: 12, cy: 3 },
+                            { cx: 18.36, cy: 5.64 },
+                            { cx: 21, cy: 12 },
+                            { cx: 18.36, cy: 18.36 },
+                            { cx: 12, cy: 21 },
+                            { cx: 5.64, cy: 18.36 },
+                            { cx: 3, cy: 12 },
+                            { cx: 5.64, cy: 5.64 },
+                          ].map((pos, i) => (
+                            <motion.circle
+                              key={i}
+                              cx={pos.cx}
+                              cy={pos.cy}
+                              r="2"
+                              initial={{ opacity: 0.2 }}
+                              animate={{ opacity: [0.2, 1, 0.2] }}
+                              transition={{
+                                repeat: Infinity,
+                                duration: 1.2,
+                                ease: "linear",
+                                delay: (i * 1.2) / 8,
+                              }}
+                            />
+                          ))}
                         </svg>
                         Approving...
                       </button>

@@ -3,6 +3,7 @@
 import React from "react";
 import { ArrowRight01Icon } from "hugeicons-react";
 import { motion, Variants } from "motion/react";
+import Image from "next/image";
 
 const Hero = () => {
   const containerVariants: Variants = {
@@ -42,9 +43,13 @@ const Hero = () => {
         >
           <div className="inline-flex items-center text-sm bg-zinc-200/60 dark:bg-zinc-800/40 border border-y-0 border-zinc-300 dark:border-zinc-700/50 transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-800/60 cursor-pointer max-sm:flex-col max-sm:w-full max-sm:items-start max-sm:text-left">
             <div className="flex items-center gap-2 px-3 py-1.5 border-r border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 font-medium max-sm:border-r-0 max-sm:border-b max-sm:w-full">
-              <div className="p-1 bg-zinc-800 dark:bg-zinc-200 flex items-center justify-center">
-                <div className="w-1 h-1 bg-zinc-50 dark:bg-zinc-900"></div>
-              </div>
+              <Image
+                src={"/logo.png"}
+                alt="logo"
+                width={20}
+                height={20}
+                className="object-cover dark:invert"
+              />
               Autopilot
             </div>
             <div className="flex items-center gap-2 px-3 py-1.5 text-zinc-800 dark:text-zinc-200 max-sm:w-full max-sm:justify-between max-sm:py-3">

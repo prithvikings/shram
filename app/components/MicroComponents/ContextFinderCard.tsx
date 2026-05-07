@@ -75,7 +75,7 @@ export default function ContextFinderCard() {
             alt="WhatsApp"
             width={64}
             height={64}
-            className="w-5 h-5 object-contain shrink-0"
+            className="w-5 h-5 object-contain shrink-0 "
           />
           <span>WhatsApp chat</span>
         </div>
@@ -123,18 +123,40 @@ export default function ContextFinderCard() {
                   >
                     {isCurrentlyLoading ? (
                       <>
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          className="animate-spin text-zinc-400 dark:text-zinc-500 shrink-0"
-                          style={{ animationDuration: "1.5s" }}
-                        >
-                          <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-                        </svg>
+                        {/* FLICKER LOADER REPLACEMENT */}
+                        <div className="flex items-center justify-center w-4 h-4 shrink-0 gap-[2px]">
+                          <motion.div
+                            animate={{ opacity: [0.3, 1, 0.3] }}
+                            transition={{
+                              repeat: Infinity,
+                              duration: 0.8,
+                              ease: "easeInOut",
+                              delay: 0,
+                            }}
+                            className="w-1 h-1 bg-zinc-400 dark:bg-zinc-500 rounded-full"
+                          />
+                          <motion.div
+                            animate={{ opacity: [0.3, 1, 0.3] }}
+                            transition={{
+                              repeat: Infinity,
+                              duration: 0.8,
+                              ease: "easeInOut",
+                              delay: 0.15,
+                            }}
+                            className="w-1 h-1 bg-zinc-400 dark:bg-zinc-500 rounded-full"
+                          />
+                          <motion.div
+                            animate={{ opacity: [0.3, 1, 0.3] }}
+                            transition={{
+                              repeat: Infinity,
+                              duration: 0.8,
+                              ease: "easeInOut",
+                              delay: 0.3,
+                            }}
+                            className="w-1 h-1 bg-zinc-400 dark:bg-zinc-500 rounded-full"
+                          />
+                        </div>
+
                         <span className="flex items-center gap-1 flex-wrap">
                           Detect missing follow-ups
                           <span className="w-3.5 h-3.5 bg-indigo-500 text-white rounded-sm flex items-center justify-center text-[8px] font-bold shrink-0">
@@ -176,7 +198,7 @@ export default function ContextFinderCard() {
                     <Image
                       src="/logo.png"
                       fill
-                      className="object-cover"
+                      className="object-cover dark:invert transition-all"
                       alt="logo"
                       sizes="20px"
                     />

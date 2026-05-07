@@ -7,6 +7,7 @@ import {
   Space_Grotesk,
 } from "next/font/google";
 import "./globals.css";
+import localFont from "next/font/local";
 
 // Import the ThemeProvider we just created
 import { ThemeProvider } from "./components/theme-provider"; // <-- Adjust path if needed
@@ -26,6 +27,7 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-space-grotesk",
 });
+
 const dmMono = DM_Mono({
   subsets: ["latin"],
   weight: ["300", "400", "500"],
@@ -36,6 +38,38 @@ const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   variable: "--font-dm-sans",
+});
+
+// UPDATED: Mapping the new font files from your public folder
+const gilroy = localFont({
+  src: [
+    {
+      path: "../public/fonnts.com-Gilroy-Light.ttf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../public/fonnts.com-Gilroy-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonnts.com-Gilroy-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonnts.com-Gilroy-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../public/fonnts.com-Gilroy-Heavy.ttf",
+      weight: "900",
+      style: "normal",
+    },
+  ],
+  variable: "--font-gilroy",
 });
 
 export const metadata: Metadata = {
@@ -52,9 +86,9 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning // <-- IMPORTANT: Prevents next-themes hydration mismatch
-      className={`${geistSans.variable} ${geistMono.variable} ${dmSans.variable} ${dmMono.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${dmSans.variable} ${dmMono.variable} ${spaceGrotesk.variable} ${gilroy.variable} h-full antialiased scroll-smooth`}
     >
-      <body className="min-h-full flex flex-col selection:bg-rose-400 selection:text-zinc-900 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 transition-colors">
+      <body className="min-h-full flex flex-col selection:bg-sky-500 selection:text-white dark:selection:bg-sky-500 dark:selection:text-white bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 transition-colors">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

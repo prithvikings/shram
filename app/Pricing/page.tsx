@@ -333,28 +333,46 @@ const PricingGrid = () => (
         </ul>
 
         <div className="mt-auto">
-          <button
-            className={`w-full py-2.5 px-4 rounded-sm font-medium transition-colors duration-300 flex items-center justify-center gap-2 ${
-              plan.primary
-                ? "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-300 shadow-sm"
-                : "border border-zinc-300 dark:border-zinc-700 bg-white/50 dark:bg-zinc-800/50 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800"
-            }`}
-          >
-            {plan.buttonText}
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M5 12h14"></path>
-              <path d="m12 5 7 7-7 7"></path>
-            </svg>
-          </button>
+          {plan.primary ? (
+            <button className="group relative overflow-hidden flex items-center justify-center gap-2 rounded-md bg-zinc-900 dark:bg-zinc-50 text-zinc-50 dark:text-zinc-900 text-sm font-medium py-2.5 px-4 shadow-sm transition-all duration-300 ease-in-out hover:bg-zinc-800 dark:hover:bg-zinc-200 hover:shadow-md active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 dark:focus-visible:ring-zinc-50 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-50 dark:focus-visible:ring-offset-zinc-950 cursor-pointer w-full">
+              <span className="relative z-10">{plan.buttonText}</span>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="relative z-10 text-zinc-400 dark:text-zinc-500 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:text-zinc-50 dark:group-hover:text-zinc-900"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+              <div className="absolute inset-0 pointer-events-none border border-white/10 dark:border-black/10 rounded-md"></div>
+              <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.2),_transparent_60%)] dark:bg-[radial-gradient(ellipse_at_top,_rgba(0,0,0,0.1),_transparent_60%)] mix-blend-overlay opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+            </button>
+          ) : (
+            <button className="group w-full rounded-md text-sm font-medium py-2.5 px-4 border border-zinc-300 dark:border-zinc-700 bg-white/50 dark:bg-zinc-800/50 text-zinc-800 dark:text-zinc-200 transition-all duration-300 ease-in-out hover:text-zinc-900 dark:hover:text-zinc-50 hover:bg-zinc-100 dark:hover:bg-zinc-800 active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 dark:focus-visible:ring-zinc-50 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-50 dark:focus-visible:ring-offset-zinc-950 cursor-pointer flex items-center justify-center gap-2">
+              <span>{plan.buttonText}</span>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-zinc-400 dark:text-zinc-500 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:text-zinc-900 dark:group-hover:text-zinc-50"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </button>
+          )}
+
           <div className="text-center mt-3 text-xs text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 cursor-pointer transition-colors duration-300">
             Or try the web demo app →
           </div>
@@ -404,8 +422,9 @@ const EnterpriseSection = () => (
         ))}
       </ul>
 
-      <button className="w-full py-2.5 px-4 border border-zinc-300 dark:border-zinc-700 bg-white/50 dark:bg-zinc-800/50 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors duration-300 font-medium rounded-sm flex items-center justify-center gap-2">
-        Talk to Founder
+      {/* Enterprise Left Button: Premium Secondary Style */}
+      <button className="group w-full rounded-md text-sm font-medium py-2.5 px-4 border border-zinc-300 dark:border-zinc-700 bg-white/50 dark:bg-zinc-800/50 text-zinc-800 dark:text-zinc-200 transition-all duration-300 ease-in-out hover:text-zinc-900 dark:hover:text-zinc-50 hover:bg-zinc-100 dark:hover:bg-zinc-800 active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 dark:focus-visible:ring-zinc-50 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-50 dark:focus-visible:ring-offset-zinc-950 cursor-pointer flex items-center justify-center gap-2">
+        <span>Talk to Founder</span>
         <svg
           width="16"
           height="16"
@@ -415,6 +434,7 @@ const EnterpriseSection = () => (
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          className="text-zinc-400 dark:text-zinc-500 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:text-zinc-900 dark:group-hover:text-zinc-50"
         >
           <path d="M5 12h14"></path>
           <path d="m12 5 7 7-7 7"></path>
@@ -463,8 +483,9 @@ const EnterpriseSection = () => (
             $1,000 in credits · Dedicated support · 6 months of tracks
           </div>
         </div>
-        <button className="bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 px-4 py-2 text-sm font-medium hover:bg-zinc-800 dark:hover:bg-zinc-300 transition-colors duration-300 flex items-center justify-center gap-2 shrink-0 rounded-sm max-sm:w-full">
-          Apply now
+        {/* Enterprise Right Button: Premium Primary Style */}
+        <button className="group relative overflow-hidden flex items-center justify-center gap-2 rounded-md bg-zinc-900 dark:bg-zinc-50 text-zinc-50 dark:text-zinc-900 text-sm font-medium py-2 px-4 shadow-sm transition-all duration-300 ease-in-out hover:bg-zinc-800 dark:hover:bg-zinc-200 hover:shadow-md active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 dark:focus-visible:ring-zinc-50 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-50 dark:focus-visible:ring-offset-zinc-950 cursor-pointer shrink-0 max-sm:w-full">
+          <span className="relative z-10">Apply now</span>
           <svg
             width="14"
             height="14"
@@ -474,16 +495,18 @@ const EnterpriseSection = () => (
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
+            className="relative z-10 text-zinc-400 dark:text-zinc-500 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:text-zinc-50 dark:group-hover:text-zinc-900"
           >
             <path d="M5 12h14"></path>
             <path d="m12 5 7 7-7 7"></path>
           </svg>
+          <div className="absolute inset-0 pointer-events-none border border-white/10 dark:border-black/10 rounded-md"></div>
+          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.2),_transparent_60%)] dark:bg-[radial-gradient(ellipse_at_top,_rgba(0,0,0,0.1),_transparent_60%)] mix-blend-overlay opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
         </button>
       </div>
     </motion.div>
   </motion.section>
 );
-
 const FAQSection = () => {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
@@ -582,8 +605,9 @@ const CTASection = () => (
       variants={fadeUpItem}
       className="flex flex-wrap justify-center gap-4 max-sm:flex-col max-sm:gap-3 max-w-sm mx-auto"
     >
-      <button className="bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 px-6 py-2.5 rounded-sm font-medium hover:bg-zinc-800 dark:hover:bg-zinc-300 transition-colors duration-300 flex items-center justify-center gap-2 shadow-sm max-sm:w-full">
-        Start Tracking
+      {/* Premium Primary Button */}
+      <button className="group relative overflow-hidden flex items-center justify-center gap-2 rounded-md bg-zinc-900 dark:bg-zinc-50 text-zinc-50 dark:text-zinc-900 text-sm font-medium py-2.5 pl-6 pr-5 shadow-sm transition-all duration-300 ease-in-out hover:bg-zinc-800 dark:hover:bg-zinc-200 hover:shadow-md active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 dark:focus-visible:ring-zinc-50 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-50 dark:focus-visible:ring-offset-zinc-950 cursor-pointer max-sm:w-full">
+        <span className="relative z-10">Start Tracking</span>
         <svg
           width="16"
           height="16"
@@ -593,18 +617,24 @@ const CTASection = () => (
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          className="relative z-10 text-zinc-400 dark:text-zinc-500 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:text-zinc-50 dark:group-hover:text-zinc-900"
         >
           <path d="M5 12h14"></path>
           <path d="m12 5 7 7-7 7"></path>
         </svg>
+        {/* Inner subtle border for depth */}
+        <div className="absolute inset-0 pointer-events-none border border-white/10 dark:border-black/10 rounded-md"></div>
+        {/* Radial gradient hover effect */}
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.2),_transparent_60%)] dark:bg-[radial-gradient(ellipse_at_top,_rgba(0,0,0,0.1),_transparent_60%)] mix-blend-overlay opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
       </button>
-      <button className="border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800/50 px-6 py-2.5 rounded-sm text-zinc-800 dark:text-zinc-200 font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors duration-300 shadow-sm max-sm:w-full">
+
+      {/* Premium Secondary Button */}
+      <button className="rounded-md text-sm font-medium py-2.5 px-6 text-zinc-600 dark:text-zinc-400 transition-all duration-300 ease-in-out hover:text-zinc-900 dark:hover:text-zinc-50 hover:bg-zinc-200/60 dark:hover:bg-zinc-800/60 active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 dark:focus-visible:ring-zinc-50 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-50 dark:focus-visible:ring-offset-zinc-950 cursor-pointer max-sm:w-full max-sm:justify-center max-sm:border max-sm:border-zinc-300 dark:max-sm:border-zinc-800">
         Talk to Sales
       </button>
     </motion.div>
   </motion.section>
 );
-
 const FooterSection = () => (
   <motion.footer
     variants={staggerContainer}
@@ -660,7 +690,13 @@ const FooterSection = () => (
       className="pt-8 border-t border-zinc-200 dark:border-zinc-800 flex flex-col md:flex-row justify-between items-center gap-4 max-md:items-start max-md:pt-6 transition-colors duration-300"
     >
       <div className="flex items-center gap-2 text-xl font-heading font-medium text-zinc-900 dark:text-zinc-50 transition-colors duration-300">
-        <Image src="/logo.png" alt="Logo" width={32} height={32} />
+        <Image
+          src="/logo.png"
+          alt="Logo"
+          className="object-cover dark:invert transition-all"
+          width={32}
+          height={32}
+        />
         Shram.ai
       </div>
       <div className="flex items-center gap-6 w-full md:w-auto justify-between md:justify-end">

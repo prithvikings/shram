@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { ArrowRight01Icon } from "hugeicons-react";
+import { animate } from "motion/react"; // <-- Import animate from Framer Motion
 
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -19,11 +20,43 @@ export const Navbar = () => {
     };
   }, [isMobileMenuOpen]);
 
+  // --- NEW: Buttery Smooth Framer Motion Scroll Handler ---
+  const handleScroll = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    targetId: string,
+  ) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      // Calculate where the element is relative to the top of the page.
+      // We subtract 96px to account for the sticky navbar height (similar to scroll-mt-24).
+      const targetPosition =
+        targetElement.getBoundingClientRect().top + window.scrollY - 96;
+
+      // Use Framer Motion to animate the window's scroll position
+      animate(window.scrollY, targetPosition, {
+        duration: 0.8, // Adjust this value to make it faster or slower (0.8s is usually a sweet spot)
+        ease: [0.16, 1, 0.3, 1], // Custom cubic-bezier for a buttery smooth deceleration
+        onUpdate: (latestValue) => {
+          window.scrollTo(0, latestValue);
+        },
+      });
+    }
+  };
+
   return (
     <>
       <div className="sticky top-0 z-50 max-w-6xl bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300 mx-auto p-4 flex justify-between items-center border border-zinc-300 dark:border-zinc-800 border-t-0 max-lg:px-6 max-md:px-4 max-md:border-x-0">
         <Link href={"/"} className="logo flex items-center gap-2 relative z-50">
-          <Image src="/logo.png" alt="Logo" width={32} height={32} />
+          <Image
+            src="/logo.png"
+            alt="Logo"
+            width={32}
+            height={32}
+            className="dark:invert transition-all"
+          />
           <h2 className="text-xl font-heading font-medium text-zinc-900 dark:text-zinc-50">
             Shram.ai
           </h2>
@@ -45,13 +78,26 @@ export const Navbar = () => {
               About
             </Link>
             <div className="w-[0.5px] h-2 bg-zinc-300 dark:bg-zinc-800"></div>
-            <div className="cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800/50 rounded-sm px-2 py-1">
-              <Link href={"/Features"}>Features</Link>
-            </div>
+
+            {/* Desktop Features Anchor */}
+            <a
+              href="#features"
+              onClick={(e) => handleScroll(e, "features")}
+              className="cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800/50 rounded-sm px-2 py-1"
+            >
+              Features
+            </a>
+
             <div className="w-[0.5px] h-2 bg-zinc-300 dark:bg-zinc-800"></div>
-            <div className="cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800/50 rounded-sm px-2 py-1">
-              <Link href={"/Pricing"}>Pricing</Link>
-            </div>
+
+            {/* Desktop Pricing Anchor */}
+            <a
+              href="#pricing"
+              onClick={(e) => handleScroll(e, "pricing")}
+              className="cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800/50 rounded-sm px-2 py-1"
+            >
+              Pricing
+            </a>
           </div>
 
           <div className="flex items-center gap-3 relative z-50">
@@ -148,20 +194,24 @@ export const Navbar = () => {
           >
             About
           </Link>
-          <Link
-            href={"/Features"}
-            onClick={() => setIsMobileMenuOpen(false)}
+
+          {/* Mobile Features Anchor */}
+          <a
+            href="#features"
+            onClick={(e) => handleScroll(e, "features")}
             className="px-4 py-3 rounded-md text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
           >
             Features
-          </Link>
-          <Link
-            href={"/Pricing"}
-            onClick={() => setIsMobileMenuOpen(false)}
+          </a>
+
+          {/* Mobile Pricing Anchor */}
+          <a
+            href="#pricing"
+            onClick={(e) => handleScroll(e, "pricing")}
             className="px-4 py-3 rounded-md text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
           >
             Pricing
-          </Link>
+          </a>
         </div>
 
         <div className="mt-auto p-4 border-t border-zinc-200 dark:border-zinc-800">

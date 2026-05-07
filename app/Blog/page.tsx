@@ -1,10 +1,20 @@
 "use client";
 
 import React from "react";
-// Assuming Navbar is in the correct relative path
+import Image from "next/image";
+import { useTheme } from "next-themes";
+import { motion, Variants } from "motion/react";
 import { Navbar } from "../components/Navbar";
+import {
+  Github01Icon,
+  Linkedin01Icon,
+  NewTwitterRectangleIcon,
+  RedditIcon,
+} from "hugeicons-react";
 
-// Mock data extracted from the provided screenshots
+// ==========================================
+// DATA
+// ==========================================
 const filterCategories = [
   "All",
   "Showcase",
@@ -18,23 +28,23 @@ const textOnlyPosts = [
   {
     category: "NEWS",
     title:
-      "Empowering the Next Generation of Agencies: Shramai Partner Program",
+      "Empowering the Next Generation of Agencies: shram.ai Partner Program",
     excerpt:
-      "If there’s one thing we’ve learned while building Shramai, it’s that busy...",
+      "If there’s one thing we’ve learned while building shram.ai, it’s that busy...",
     date: "31 Dec 2025",
   },
   {
     category: "NEWS",
-    title: "Shramai raises $3 million with the best memory engine for task",
+    title: "shram.ai raises $3 million with the best memory engine for task",
     excerpt:
       "Today, I am excited to announce our first funding round to accelerate our product...",
     date: "06 Oct 2025",
   },
   {
     category: "CLIENT WIN",
-    title: "Task vs Shramai: Why Scale AI Switched And What’s Better For You?",
+    title: "Task vs shram.ai: Why Scale AI Switched And What’s Better For You?",
     excerpt:
-      "“Task was not great. Glad to have found Shramai” That’s how Zaid...",
+      "“Task was not great. Glad to have found shram.ai” That’s how Zaid...",
     date: "02 Oct 2025",
   },
   {
@@ -48,11 +58,10 @@ const textOnlyPosts = [
 
 const featuredPost = {
   category: "PRODUCT OPS",
-  title: "Introducing @shramai/syncs v2.0.0",
+  title: "Introducing @shram.ai/syncs v2.0.0",
   excerpt:
     "Today we're releasing v2.0.0. This release unifies the app across all tracking sdk integrations from AI CRM to Notion, makes conversation identity a first-class concept, and ships with...",
   date: "27 Apr 2026 · 5 min read",
-  // Added dark mode gradients
   gradient: "from-blue-50 to-white dark:from-blue-950/30 dark:to-zinc-900",
 };
 
@@ -68,9 +77,9 @@ const imagePosts = [
   },
   {
     category: "PRODUCT OPS",
-    title: "Shramai will make your Slack channel crazy powerful",
+    title: "shram.ai will make your Slack channel crazy powerful",
     excerpt:
-      "Today, we are launching Shramai support to your Slack channel TLDR: you can use...",
+      "Today, we are launching shram.ai support to your Slack channel TLDR: you can use...",
     date: "07 Apr 2026 · 6 min read",
     gradient: "from-zinc-900 to-zinc-800 dark:from-zinc-800 dark:to-zinc-700",
   },
@@ -110,18 +119,18 @@ const imagePosts = [
   },
   {
     category: "PRODUCT OPS",
-    title: "We added Shramai to Slack Inbox. It's INSANELY powerful now...",
+    title: "We added shram.ai to Slack Inbox. It's INSANELY powerful now...",
     excerpt:
-      "Today, we are launching the Shramai plugin for Slack Inbox! TLDR: You can use Shramai...",
+      "Today, we are launching the shram.ai plugin for Slack Inbox! TLDR: You can use shram.ai...",
     date: "30 Jan 2026 · 4 min read",
     gradient:
       "from-orange-500 to-orange-600 dark:from-orange-600 dark:to-orange-700",
   },
   {
     category: "NEWS",
-    title: "Zapier / Make bot's memory SUCKS. We gave it Shramai.",
+    title: "Zapier / Make bot's memory SUCKS. We gave it shram.ai.",
     excerpt:
-      "I'm the founder of Shramai. Zapier/Make bot is blowing up right now, with many, many use...",
+      "I'm the founder of shram.ai. Zapier/Make bot is blowing up right now, with many, many use...",
     date: "28 Jan 2026 · 2 min read",
     gradient: "from-zinc-900 to-zinc-700 dark:from-zinc-800 dark:to-zinc-600",
   },
@@ -136,7 +145,7 @@ const imagePosts = [
   {
     category: "NEWS",
     title:
-      "Faster, smarter, reliable infinite sync: Shramai IS context engineering.",
+      "Faster, smarter, reliable infinite sync: shram.ai IS context engineering.",
     excerpt:
       "People are obsessed with taskers and taskers engineering. Sure, what you say is important, but...",
     date: "09 Jul 2025 · 4 min read",
@@ -161,6 +170,189 @@ const imagePosts = [
   },
 ];
 
+const footerLinks = {
+  Product: ["App", "Add-ons", "Pricing", "Changelog"],
+  Resources: ["User Manuals ", "Blog", "Case study"],
+  Company: ["About", "Careers", "Privacy", "Terms"],
+};
+
+// ==========================================
+// ANIMATION VARIANTS
+// ==========================================
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const fadeUpItem: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.16, 1, 0.3, 1], // Buttery Apple-style easing
+    },
+  },
+};
+
+// ==========================================
+// SUB-COMPONENTS
+// ==========================================
+const ThemeToggle = () => {
+  const { theme, setTheme } = useTheme();
+  const isDark = theme === "dark";
+
+  return (
+    <button
+      role="switch"
+      aria-checked={isDark}
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      className="relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-zinc-100 dark:focus-visible:ring-offset-zinc-950 bg-zinc-200 dark:bg-zinc-700"
+    >
+      <span className="sr-only">Toggle theme</span>
+
+      {/* The sliding "thumb" of the switch */}
+      <span
+        className={`pointer-events-none relative inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out flex items-center justify-center ${
+          isDark ? "translate-x-5" : "translate-x-0"
+        }`}
+      >
+        {/* Sun Icon (Visible when light) */}
+        <span
+          className={`absolute inset-0 flex h-full w-full items-center justify-center transition-opacity duration-200 ease-in ${
+            isDark ? "opacity-0" : "opacity-100"
+          }`}
+          aria-hidden="true"
+        >
+          <svg
+            className="h-3 w-3 text-zinc-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+        </span>
+
+        {/* Moon Icon (Visible when dark) */}
+        <span
+          className={`absolute inset-0 flex h-full w-full items-center justify-center transition-opacity duration-200 ease-in ${
+            isDark ? "opacity-100" : "opacity-0"
+          }`}
+          aria-hidden="true"
+        >
+          <svg
+            className="h-3 w-3 text-zinc-900"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+        </span>
+      </span>
+    </button>
+  );
+};
+
+const FooterSection = () => (
+  <motion.footer
+    variants={staggerContainer}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, amount: 0.1 }}
+    className="pt-16 pb-8 px-8 border-t border-zinc-300 dark:border-zinc-800 bg-white dark:bg-zinc-950 max-md:pt-12 max-md:px-6 transition-colors duration-300 mt-auto"
+  >
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 max-md:gap-y-10 max-md:mb-12">
+      {Object.entries(footerLinks).map(([title, links]) => (
+        <motion.div variants={fadeUpItem} key={title}>
+          <h4 className="text-xs font-dmmono tracking-widest text-zinc-900 dark:text-zinc-100 font-bold mb-4 uppercase transition-colors duration-300">
+            {title}
+          </h4>
+          <ul className="space-y-3">
+            {links.map((link) => (
+              <li key={link}>
+                <a
+                  href="#"
+                  className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300"
+                >
+                  {link}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      ))}
+
+      <motion.div variants={fadeUpItem}>
+        <h4 className="text-xs font-dmmono tracking-widest text-zinc-900 dark:text-zinc-100 font-bold mb-4 uppercase transition-colors duration-300">
+          CONNECT
+        </h4>
+        <div className="flex items-center gap-2 text-zinc-400 dark:text-zinc-500">
+          <div className="hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors duration-300">
+            <NewTwitterRectangleIcon />
+          </div>
+          <div className="hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors duration-300">
+            <Github01Icon />
+          </div>
+          <div className="hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors duration-300">
+            <Linkedin01Icon />
+          </div>
+          <div className="hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors duration-300">
+            <RedditIcon />
+          </div>
+        </div>
+      </motion.div>
+    </div>
+
+    <motion.div
+      variants={fadeUpItem}
+      className="pt-8 border-t border-zinc-200 dark:border-zinc-800 flex flex-col md:flex-row justify-between items-center gap-4 max-md:items-start max-md:pt-6 transition-colors duration-300"
+    >
+      <div className="flex items-center gap-2 text-xl font-heading font-medium text-zinc-900 dark:text-zinc-50 transition-colors duration-300">
+        <Image
+          src="/logo.png"
+          alt="Logo"
+          className="object-cover dark:invert transition-all"
+          width={32}
+          height={32}
+        />
+        Shram.ai
+      </div>
+      <div className="flex items-center gap-6 w-full md:w-auto justify-between md:justify-end">
+        <div className="text-xs text-zinc-500 dark:text-zinc-400 transition-colors duration-300">
+          © 2026 Shram.ai Inc. All rights reserved.
+        </div>
+        <ThemeToggle />
+      </div>
+    </motion.div>
+  </motion.footer>
+);
+
+// ==========================================
+// MAIN PAGE
+// ==========================================
 const Blog = () => {
   return (
     <div className="bg-[#FAFAFA] dark:bg-zinc-950 w-full min-h-screen font-sans transition-colors duration-300">
@@ -183,11 +375,11 @@ const Blog = () => {
               <line x1="12" y1="2" x2="12" y2="15"></line>
             </svg>
             <h1 className="text-5xl font-bold font-space tracking-tight text-zinc-900 dark:text-zinc-50 transition-colors duration-300">
-              Shramai
+              shram.ai
             </h1>
           </div>
           <p className="text-lg text-zinc-500 dark:text-zinc-400 font-dmmono tracking-tight max-w-2xl mx-auto transition-colors duration-300">
-            How we build Shramai - best tracking tool on the planet.
+            How we build shram.ai - best tracking tool on the planet.
           </p>
         </div>
 
@@ -315,166 +507,8 @@ const Blog = () => {
           ))}
         </div>
 
-        {/* Footer */}
-        <footer className="border-t border-zinc-200 dark:border-zinc-800 bg-[#FAFAFA] dark:bg-zinc-950 mt-auto pt-16 pb-8 px-10 transition-colors duration-300">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
-            <div className="flex flex-col gap-4">
-              <h4 className="text-[11px] font-dmmono text-zinc-400 dark:text-zinc-500 uppercase tracking-wider transition-colors duration-300">
-                Product
-              </h4>
-              <a
-                href="#"
-                className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300"
-              >
-                App
-              </a>
-              <a
-                href="#"
-                className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300"
-              >
-                Add-ons
-              </a>
-              <a
-                href="#"
-                className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300"
-              >
-                Pricing
-              </a>
-              <a
-                href="#"
-                className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300"
-              >
-                Changelog
-              </a>
-            </div>
-            <div className="flex flex-col gap-4">
-              <h4 className="text-[11px] font-dmmono text-zinc-400 dark:text-zinc-500 uppercase tracking-wider transition-colors duration-300">
-                Resources
-              </h4>
-              <a
-                href="#"
-                className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300"
-              >
-                Documentation
-              </a>
-              <a
-                href="#"
-                className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300"
-              >
-                Blog
-              </a>
-              <a
-                href="#"
-                className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300"
-              >
-                Case study
-              </a>
-            </div>
-            <div className="flex flex-col gap-4">
-              <h4 className="text-[11px] font-dmmono text-zinc-400 dark:text-zinc-500 uppercase tracking-wider transition-colors duration-300">
-                Company
-              </h4>
-              <a
-                href="#"
-                className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300"
-              >
-                About
-              </a>
-              <a
-                href="#"
-                className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300"
-              >
-                Careers
-              </a>
-              <a
-                href="#"
-                className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300"
-              >
-                Privacy
-              </a>
-              <a
-                href="#"
-                className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300"
-              >
-                Terms
-              </a>
-            </div>
-            <div className="flex flex-col gap-4">
-              <h4 className="text-[11px] font-dmmono text-zinc-400 dark:text-zinc-500 uppercase tracking-wider transition-colors duration-300">
-                Connect
-              </h4>
-              <div className="flex gap-4 text-zinc-500 dark:text-zinc-400">
-                <a
-                  href="#"
-                  className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300"
-                >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M4 4l16 16M4 20L20 4" />
-                  </svg>
-                </a>
-                <a
-                  href="#"
-                  className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300"
-                >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                  </svg>
-                </a>
-                <a
-                  href="#"
-                  className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300"
-                >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                    <rect x="2" y="9" width="4" height="12" />
-                    <circle cx="4" cy="4" r="2" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-between items-center border-t border-zinc-200 dark:border-zinc-800 pt-8 transition-colors duration-300">
-            <div className="flex items-center gap-2 font-bold text-zinc-900 dark:text-zinc-50 transition-colors duration-300">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-                <polyline points="16 6 12 2 8 6"></polyline>
-                <line x1="12" y1="2" x2="12" y2="15"></line>
-              </svg>
-              <span>Shramai</span>
-            </div>
-            <p className="text-[11px] text-zinc-400 dark:text-zinc-500 transition-colors duration-300">
-              © 2026 Shramai Inc. All rights reserved.
-            </p>
-          </div>
-        </footer>
+        {/* --- REPLACED STATIC FOOTER WITH PREMIUM FOOTER SECTION --- */}
+        <FooterSection />
       </div>
     </div>
   );

@@ -16,20 +16,28 @@ const page = () => {
     <div className="bg-zinc-100 dark:bg-zinc-950 w-full min-h-screen relative pb-24 transition-colors duration-300">
       <Navbar />
       <Hero />
-      <Divider height={24} />
+      <Divider height={16} />
       <Shift />
       <Divider height={16} />
-      <What />
+
+      {/* Wrapper added with ID and scroll-margin for Features */}
+      <section id="features" className="scroll-mt-24">
+        <What />
+      </section>
+
       <Whatwedo />
       <Benchmark />
       <Localisation />
-      <Divider height={24} />
+      <Divider height={16} />
       <Testimonials />
       <Divider height={16} />
-      <Pricing />
+
+      {/* Wrapper added with ID and scroll-margin for Pricing */}
+      <section id="pricing" className="scroll-mt-24">
+        <Pricing />
+      </section>
 
       {/* --- Bottom Fade/Blur Effect --- */}
-      {/* Updated the gradient to support dark mode zinc-950 */}
       <div className="hidden lg:block fixed bottom-0 left-0 w-full h-32 bg-gradient-to-t from-zinc-100 via-zinc-100/80 dark:from-zinc-950 dark:via-zinc-950/80 to-transparent pointer-events-none z-40 backdrop-blur-sm [mask-image:linear-gradient(to_top,white,transparent)]"></div>
     </div>
   );

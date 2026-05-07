@@ -1,6 +1,191 @@
+"use client";
+
 import React from "react";
 import { Navbar } from "../components/Navbar"; // Adjust path if needed
 import Image from "next/image";
+import { useTheme } from "next-themes";
+import { motion, Variants } from "motion/react";
+import {
+  Github01Icon,
+  Linkedin01Icon,
+  NewTwitterRectangleIcon,
+  RedditIcon,
+} from "hugeicons-react";
+
+// ==========================================
+// 1. SHARED DATA & VARIANTS FOR FOOTER
+// ==========================================
+const footerLinks = {
+  Product: ["App", "Add-ons", "Pricing", "Changelog"],
+  Resources: ["User Manuals ", "Blog", "Case study"],
+  Company: ["About", "Careers", "Privacy", "Terms"],
+};
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const fadeUpItem: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.16, 1, 0.3, 1], // Buttery Apple-style easing
+    },
+  },
+};
+
+// ==========================================
+// 2. THEME TOGGLE & FOOTER COMPONENTS
+// ==========================================
+const ThemeToggle = () => {
+  const { theme, setTheme } = useTheme();
+  const isDark = theme === "dark";
+
+  return (
+    <button
+      role="switch"
+      aria-checked={isDark}
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      className="relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-zinc-100 dark:focus-visible:ring-offset-zinc-950 bg-zinc-200 dark:bg-zinc-700"
+    >
+      <span className="sr-only">Toggle theme</span>
+      <span
+        className={`pointer-events-none relative inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out flex items-center justify-center ${
+          isDark ? "translate-x-5" : "translate-x-0"
+        }`}
+      >
+        <span
+          className={`absolute inset-0 flex h-full w-full items-center justify-center transition-opacity duration-200 ease-in ${
+            isDark ? "opacity-0" : "opacity-100"
+          }`}
+          aria-hidden="true"
+        >
+          <svg
+            className="h-3 w-3 text-zinc-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+        </span>
+        <span
+          className={`absolute inset-0 flex h-full w-full items-center justify-center transition-opacity duration-200 ease-in ${
+            isDark ? "opacity-100" : "opacity-0"
+          }`}
+          aria-hidden="true"
+        >
+          <svg
+            className="h-3 w-3 text-zinc-900"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+        </span>
+      </span>
+    </button>
+  );
+};
+
+const FooterSection = () => (
+  <motion.footer
+    variants={staggerContainer}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, amount: 0.1 }}
+    className="pt-16 pb-8 px-8 border-t border-zinc-300 dark:border-zinc-800 bg-white dark:bg-zinc-950 max-md:pt-12 max-md:px-6 transition-colors duration-300"
+  >
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 max-md:gap-y-10 max-md:mb-12">
+      {Object.entries(footerLinks).map(([title, links]) => (
+        <motion.div variants={fadeUpItem} key={title}>
+          <h4 className="text-xs font-dmmono tracking-widest text-zinc-900 dark:text-zinc-100 font-bold mb-4 uppercase transition-colors duration-300">
+            {title}
+          </h4>
+          <ul className="space-y-3">
+            {links.map((link) => (
+              <li key={link}>
+                <a
+                  href="#"
+                  className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-300"
+                >
+                  {link}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      ))}
+
+      <motion.div variants={fadeUpItem}>
+        <h4 className="text-xs font-dmmono tracking-widest text-zinc-900 dark:text-zinc-100 font-bold mb-4 uppercase transition-colors duration-300">
+          CONNECT
+        </h4>
+        <div className="flex items-center gap-2 text-zinc-400 dark:text-zinc-500">
+          <div className="hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors duration-300">
+            <NewTwitterRectangleIcon />
+          </div>
+          <div className="hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors duration-300">
+            <Github01Icon />
+          </div>
+          <div className="hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors duration-300">
+            <Linkedin01Icon />
+          </div>
+          <div className="hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors duration-300">
+            <RedditIcon />
+          </div>
+        </div>
+      </motion.div>
+    </div>
+
+    <motion.div
+      variants={fadeUpItem}
+      className="pt-8 border-t border-zinc-200 dark:border-zinc-800 flex flex-col md:flex-row justify-between items-center gap-4 max-md:items-start max-md:pt-6 transition-colors duration-300"
+    >
+      <div className="flex items-center gap-2 text-xl font-heading font-medium text-zinc-900 dark:text-zinc-50 transition-colors duration-300">
+        <Image
+          src="/logo.png"
+          alt="Logo"
+          className="object-cover dark:invert transition-all"
+          width={32}
+          height={32}
+        />
+        Shram.ai
+      </div>
+      <div className="flex items-center gap-6 w-full md:w-auto justify-between md:justify-end">
+        <div className="text-xs text-zinc-500 dark:text-zinc-400 transition-colors duration-300">
+          © 2026 Shram.ai Inc. All rights reserved.
+        </div>
+        <ThemeToggle />
+      </div>
+    </motion.div>
+  </motion.footer>
+);
 
 const About = () => {
   // Value card data
@@ -43,13 +228,13 @@ const About = () => {
 
           {/* Main Logo / Illustration Placeholder */}
           <div className="shrink-0 flex items-center justify-center w-full md:w-auto mt-6 md:mt-0 pr-0 md:pr-10">
-            <div className="p-8 bg-amber-50 dark:bg-amber-900/20 rounded-xl flex items-center justify-center text-zinc-400 dark:text-zinc-500 text-sm text-center transition-colors duration-300 border border-amber-100 dark:border-amber-900/30">
+            <div className="p-8 bg-zinc-100 dark:bg-zinc-900/20 rounded-xl flex items-center justify-center text-zinc-400 dark:text-zinc-500 text-sm text-center transition-colors duration-300 border border-zinc-100 dark:border-zinc-900/30">
               <Image
                 src="/logo.png"
                 alt="Logo"
                 width={80}
                 height={80}
-                className="dark:brightness-200 transition-all duration-300"
+                className="dark:brightness-200 transition-all duration-300 dark:invert"
               />
             </div>
           </div>
@@ -179,7 +364,7 @@ const About = () => {
             <h2 className="text-3xl font-heading font-medium tracking-tight text-zinc-900 dark:text-zinc-50 mb-6 transition-colors duration-300">
               Find your flow with Shram.
             </h2>
-            <p className="text-lg text-zinc-600 dark:text-zinc-400 mb-10 max-w-lg mx-auto transition-colors duration-300">
+            <p className="text-lg text-zinc-600 dark:text-zinc-400 mb-10 max-w-md mx-auto transition-colors duration-300">
               If you are busy, high agency and value your time, Shram is for
               you.
             </p>
@@ -203,9 +388,8 @@ const About = () => {
               </button>
             </div>
           </div>
-
-          <div className="mt-20 border-t border-zinc-300 dark:border-zinc-800 transition-colors duration-300 max-w-sm mx-auto"></div>
         </section>
+        <FooterSection />
       </main>
     </div>
   );
