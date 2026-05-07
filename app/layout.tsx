@@ -119,6 +119,14 @@ export const metadata: Metadata = {
     images: ["/og-image.png"],
     creator: "@shram_ai",
   },
+  icons: {
+    icon: [
+      { url: "/logo.png", media: "(prefers-color-scheme: light)" },
+      { url: "/favicon-dark.png", media: "(prefers-color-scheme: dark)" },
+    ],
+    shortcut: "/logo.png",
+    apple: "/favicon-dark.png",
+  },
   robots: {
     index: true,
     follow: true,
