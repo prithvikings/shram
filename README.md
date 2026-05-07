@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🦕 Shram.ai — The Ultimate Memory Autopilot
 
-## Getting Started
+**Stop forgetting to reply to people.** Shram quietly monitors your chats and emails, and when someone needs a response or a meeting, it drafts the perfect reply instantly.
 
-First, run the development server:
+[**Live Demo**](https://shram-five.vercel.app/) • [**GitHub Repository**](https://github.com/prithvikings/shram)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-ff69b4?style=for-the-badge&logo=framer)](https://motion.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org)
+
+## ✨ Overview
+
+Shram.ai is a premium productivity platform designed to eliminate the mental overhead of message management. It acts as your **Personal Memory Layer**, ensuring zero missed messages or meetings by auto-drafting responses across your entire communication stack.
+
+### Key Capabilities
+
+- **🧠 MemoryLayer™:** A state-of-the-art autopilot tracker for busy workflows that notices when conversations "die" and flags them for follow-up.
+- **🔍 Context Finder:** Silently scans WhatsApp, Slack, and Email threads to extract commitments and tasks before they fall through the cracks.
+- **⚡ Flawless Auto-Drafting:** Analyzes past messages and specific promises to generate human-sounding replies for your approval in one click.
+- **🔗 Deep Integrations:** Seamlessly links with WhatsApp, Slack, Telegram, Discord, Notion, Linear, X, Gmail, and Outlook.
+
+## 🚀 Tech Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **Styling:** Tailwind CSS 4.0 (Utilizing modern CSS-first approach)
+- **Animations:** `motion/react` (Framer Motion) for buttery smooth physics-based transitions.
+- **State Management:** React Context & Hooks
+- **Type Safety:** TypeScript
+
+## 🛠️ Getting Started
+
+### Prerequisites
+
+- Node.js 18.x or later
+- npm / yarn / pnpm
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/prithvikings/shram.git
+   cd shram
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🎨 Design Philosophy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Shram.ai follows a strict **"Buttery Smooth"** aesthetic:
 
-## Learn More
+- **Zero Layout Shifts:** Proactive prevention of jumping content using Framer Motion's `layout` props and fixed containers.
+- **Staggered Orchestration:** Cascading "waterfall" animations that guide the user's eye naturally.
+- **Contextual Interactions:** Micro-interactions (hovers, clicks) designed as physical state machines for a premium, native-app feel.
+- **Modern Typography:** Optimized loading of Geist, Gilroy, and Space Grotesk fonts.
 
-To learn more about Next.js, take a look at the following resources:
+## 📁 Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `/app`: Next.js App Router (Pages, Layouts, and API routes).
+- `/components`: Premium UI components built with Radix UI and Framer Motion.
+- `/public`: High-quality assets and custom local fonts.
+- `/lib`: Core utilities, animation variants, and theme providers.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built with ❤️ by the Shram.ai Team.
